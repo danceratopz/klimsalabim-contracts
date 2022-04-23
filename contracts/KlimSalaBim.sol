@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.9;
 
-// import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 /// @title
 /// @author danceratopz, haurog
 /// @notice
-//contract KlimSalaBim is IERC721Receiver {
-contract KlimSalaBim {
+contract KlimSalaBim is IERC721Receiver {
+
     uint256 eventId = 0;
 
     uint256 public totalCarbonCompensated = 0;  // Total CO2 compensated for all participants of the event.
@@ -33,6 +33,10 @@ contract KlimSalaBim {
     mapping(address => SingleCompensatedTravel[]) public participants;
 
     constructor() {}
+
+    /// @notice Emitted when an NFT is transferred to the FractionalizeNFT contract.
+    /// @param sender The address that sent the NFT.
+    event NftReceived(address indexed sender);
 
     /// @notice
     /// @param startingLocation city
@@ -71,5 +75,19 @@ contract KlimSalaBim {
         returns(SingleCompensatedTravel[] memory)
     {
         return participants[userAddress];
+    }
+
+    /// @dev Required to use safeTransferFrom() from OpenZeppelin's ERC721 contract (when transferring NFTs to this contract).
+    function onERC721Received(
+        address operator,
+        address from,
+        uint256 nftTokenId,
+        bytes memory data
+    ) public returns (bytes4) {
+        emit NftReceived(msg.sender);
+        return
+            bytes4(
+                keccak256("onERC721Received(address,address,uint256,bytes)")
+            );
     }
 }
