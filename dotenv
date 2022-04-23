@@ -1,5 +1,6 @@
 API_URL=unused
 WEB3_INFURA_PROJECT_ID=unused
-ALCHEMY_PROJECT_KEY=add-key-here
+ALCHEMY_POLYGON_API_KEY=add-key-here
+ALCHEMY_MUMBAI_API_KEY=add-key-here
 ETHERSCAN_TOKEN=unused
 MNEMONIC=add-mnemonic-here
