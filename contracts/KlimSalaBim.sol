@@ -26,7 +26,7 @@ contract KlimSalaBim {
         uint256 toucanBadgeID;
     }
 
-    mapping(address => SingleCompensatedTravel) public participants;
+    mapping(address => SingleCompensatedTravel[]) public participants;
 
     constructor() {}
 
@@ -46,13 +46,15 @@ contract KlimSalaBim {
 
         uint256 dummyToucanID = 1; // A dummy number to fill into struct TODO: needs to be the proper ID
 
-        participants[msg.sender] = SingleCompensatedTravel({
+        participants[msg.sender].push(SingleCompensatedTravel({
             startingLocation: startingLocation,
             eventId: eventId,
             modeOfTravel: modeOfTravel,
             distance: distance,
             toucanBadgeID: dummyToucanID
-        });
+        }));
+
+
 
     }
 
