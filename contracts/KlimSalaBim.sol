@@ -2,6 +2,7 @@
 pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "./interfaces/IOffsetHelper.sol";
 
 /// @title
 /// @author danceratopz, haurog
@@ -11,6 +12,13 @@ contract KlimSalaBim is IERC721Receiver {
     uint256 eventId = 0;
 
     uint256 public totalCarbonCompensated = 0;  // Total CO2 compensated for all participants of the event.
+
+    address OFFSETHELPER_ADDRESS = 0x1A38e74D5190bA69938979aBe69ceb7b823209d3;
+    address BCT_ADDRESS = 0x2F800Db0fdb5223b3C3f354886d907A671414A7F;
+    address NCT_ADDRESS = 0xD838290e877E0188a4A44700463419ED96c16107;
+
+    // instantiate toucan's offset helper contract
+    IOffsetHelper offsetHelper = IOffsetHelper(OFFSETHELPER_ADDRESS);
 
     enum TravelModes {
         Plane,
@@ -66,7 +74,7 @@ contract KlimSalaBim is IERC721Receiver {
             compensatedCarbon: carbonToCompensate  // TODO: might want to use the a return from toucan and not the one the user filled in.
         }));
 
-
+        offsetHelper.autoOffset(BCT_ADDRESS, carbonToCompensate);
 
         totalCarbonCompensated += carbonToCompensate; // TODO: might want to use the a return from toucan and not the one the user filled in.
     }
