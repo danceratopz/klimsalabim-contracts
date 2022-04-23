@@ -31,6 +31,7 @@ contract KlimSalaBim is IERC721Receiver {
 
     mapping(address => SingleCompensatedTravel[]) public compensatedTravels;
 
+    address[] public participants;  // A list of all participants
     constructor() {}
 
     /// @notice Emitted when an NFT is transferred to the FractionalizeNFT contract.
@@ -53,6 +54,10 @@ contract KlimSalaBim is IERC721Receiver {
 
         // uint256 dummyToucanID = 1; // A dummy number to fill into struct TODO: needs to be the proper ID -> No NFT to use
 
+        if (compensatedTravels[msg.sender].length == 0) {
+            participants.push(msg.sender);
+        }
+
         compensatedTravels[msg.sender].push(SingleCompensatedTravel({
             startingLocation: startingLocation,
             eventId: eventId,
@@ -61,7 +66,19 @@ contract KlimSalaBim is IERC721Receiver {
             compensatedCarbon: carbonToCompensate  // TODO: might want to use the a return from toucan and not the one the user filled in.
         }));
 
+
+
         totalCarbonCompensated += carbonToCompensate; // TODO: might want to use the a return from toucan and not the one the user filled in.
+    }
+
+    /// @notice A getter function get an array of all participants back by address.
+    /// @return an array (can be empty) with all owned warrant canaries.
+    function getParticipants()
+        public
+        view
+        returns(address[] memory)
+    {
+        return participants;
     }
 
     /// @notice A getter function get back an array of all compensated travels by the address.
