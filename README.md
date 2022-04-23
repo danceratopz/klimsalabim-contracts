@@ -8,6 +8,10 @@ We build an intuitive way for participants of an event to offset their travel in
 
 0. Create and activate a virtual env.
 1. `pip install -r requirements.txt`
+2. Install required Solidity libraries:
+   ```
+   brownie pm install OpenZeppelin/openzeppelin-contracts@4.3.2
+   ```
 
 ### Local Dev
 
