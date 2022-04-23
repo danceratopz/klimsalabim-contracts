@@ -39,8 +39,7 @@ contract KlimSalaBim {
         string memory startingLocation,
         uint256 distance,
         TravelModes modeOfTravel
-    ) public returns (uint256) {
-
+    ) public payable returns (uint256) {
         // TODO: Connect to toucan retire function
         // Send Matic to toucan protocol
         // Receive Toucan ID
@@ -54,6 +53,7 @@ contract KlimSalaBim {
             distance: distance,
             toucanBadgeID: dummyToucanID
         });
+
     }
 
     /* /// @dev Required to use safeTransferFrom() from OpenZeppelin's ERC721 contract (when transferring NFTs to this contract). */
