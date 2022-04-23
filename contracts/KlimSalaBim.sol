@@ -2,7 +2,7 @@
 pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "./interfaces/IOffsetHelper.sol";
+import "./interfaces/IOffsetHelper.sol"; // See https://github.com/ToucanProtocol/example-implementations
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 
@@ -57,21 +57,18 @@ contract KlimSalaBim is IERC721Receiver, Ownable, Pausable {
         uint256 carbonToCompensate,
         TravelModes modeOfTravel
     ) public payable whenNotPaused() {
-        // uint256 dummyToucanID = 1; // A dummy number to fill into struct TODO: needs to be the proper ID -> No NFT to use
-
         if (compensatedTravels[msg.sender].length == 0) {
             participants.push(msg.sender);
         }
-
         compensatedTravels[msg.sender].push(SingleCompensatedTravel({
             startingLocation: startingLocation,
             eventId: eventId,
             modeOfTravel: modeOfTravel,
             distance: distance,
-            compensatedCarbon: carbonToCompensate  // TODO: might want to use the a return from toucan and not the one the user filled in.
+            compensatedCarbon: carbonToCompensate
         }));
 
-        totalCarbonCompensated += carbonToCompensate; // TODO: might want to use the a return from toucan and not the one the user filled in.
+        totalCarbonCompensated += carbonToCompensate;
 
         // Call Toucan's autoOffset function to retire/compensate the carbon.
         offsetHelper.autoOffset(BCT_ADDRESS, carbonToCompensate);
