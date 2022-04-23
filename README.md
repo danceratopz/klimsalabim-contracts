@@ -30,3 +30,11 @@ Fork:
 ```
 brownie console --network polygon-test-fork
 ```
+
+#### Key Management
+
+Add private keys for deployment account by running the two commands in succession:
+```
+brownie accounts new ksb_deployment_polygon_main
+brownie accounts new ksb_deployment_polygon_test
+```
