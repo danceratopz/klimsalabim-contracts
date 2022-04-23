@@ -39,7 +39,7 @@ contract KlimSalaBim {
         string memory startingLocation,
         uint256 distance,
         TravelModes modeOfTravel
-    ) public payable returns (uint256) {
+    ) public payable {
         // TODO: Connect to toucan retire function
         // Send Matic to toucan protocol
         // Receive Toucan ID
