@@ -3,13 +3,15 @@ pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "./interfaces/IOffsetHelper.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
 
 /// @title
 /// @author danceratopz, haurog
 /// @notice
-contract KlimSalaBim is IERC721Receiver {
+contract KlimSalaBim is IERC721Receiver, Ownable, Pausable {
 
-    uint256 eventId = 0;
+    uint256 eventId = 0;  // Can be used to identify an Event 0: ETHAmsterdam
 
     uint256 public totalCarbonCompensated = 0;  // Total CO2 compensated for all participants of the event.
 
@@ -56,7 +58,7 @@ contract KlimSalaBim is IERC721Receiver {
         uint256 distance,
         uint256 carbonToCompensate,
         TravelModes modeOfTravel
-    ) public payable {
+    ) public payable whenNotPaused() {
         // TODO: Connect to toucan retire function
         // Send Matic to toucan protocol
 
@@ -98,6 +100,16 @@ contract KlimSalaBim is IERC721Receiver {
         returns(SingleCompensatedTravel[] memory)
     {
         return compensatedTravels[userAddress];
+    }
+
+        /// @notice Pauses the contract. Contract owner only, therefore very minimal function.
+    function pauseContract() public onlyOwner() {
+        _pause();
+    }
+
+    /// @notice Unpauses the contract. Contract owner only, therefore very minimal function.
+    function unpauseContract() public onlyOwner() {
+        _unpause();
     }
 
     /// @dev Required to use safeTransferFrom() from OpenZeppelin's ERC721 contract (when transferring NFTs to this contract).
