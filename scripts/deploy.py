@@ -1,6 +1,9 @@
 from brownie import accounts, network, KlimSalaBim
 
-def deploy_dev():
+def deploy_fork():
+    """
+    Deploy locally on a Polygon Mainnet or Mumbai fork.
+    """
     deploy_account = accounts[0]
     ksb_contract = KlimSalaBim.deploy({"from": deploy_account})
     print(ksb_contract)
@@ -16,10 +19,9 @@ def deploy_mumbai():
     return ksb_contract
 
 def main():
-    if network.show_active() == "polygon-test-fork":
-        ksb_contract = deploy_dev()
+    if 'fork' in network.show_active():
+        ksb_contract = deploy_fork()
         return ksb_contract
-
     if network.show_active() == "polygon-test-alchemy":
         ksb_contract = deploy_mumbai()
         return ksb_contract
