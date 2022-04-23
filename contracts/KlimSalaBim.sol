@@ -20,6 +20,7 @@ contract KlimSalaBim {
         Walk
     }
 
+    // Information about a single compensated event.
     struct SingleCompensatedTravel {
         string startingLocation;
         uint256 eventId;
@@ -46,7 +47,6 @@ contract KlimSalaBim {
     ) public payable {
         // TODO: Connect to toucan retire function
         // Send Matic to toucan protocol
-        // Receive Toucan ID
 
         uint256 dummyToucanID = 1; // A dummy number to fill into struct TODO: needs to be the proper ID
 
@@ -72,19 +72,4 @@ contract KlimSalaBim {
     {
         return participants[userAddress];
     }
-
-
-    /* /// @dev Required to use safeTransferFrom() from OpenZeppelin's ERC721 contract (when transferring NFTs to this contract). */
-    /* function onERC721Received( */
-    /*     address operator, */
-    /*     address from, */
-    /*     uint256 nftTokenId, */
-    /*     bytes memory data */
-    /* ) public returns (bytes4) { */
-    /*     emit NftReceived(msg.sender); */
-    /*     return */
-    /*         bytes4( */
-    /*             keccak256("onERC721Received(address,address,uint256,bytes)") */
-    /*         ); */
-    /* } */
 }
