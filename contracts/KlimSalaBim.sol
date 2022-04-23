@@ -59,9 +59,6 @@ contract KlimSalaBim is IERC721Receiver, Ownable, Pausable {
         uint256 carbonToCompensate,
         TravelModes modeOfTravel
     ) public payable whenNotPaused() {
-        // TODO: Connect to toucan retire function
-        // Send Matic to toucan protocol
-
         // uint256 dummyToucanID = 1; // A dummy number to fill into struct TODO: needs to be the proper ID -> No NFT to use
 
         if (compensatedTravels[msg.sender].length == 0) {
@@ -76,9 +73,10 @@ contract KlimSalaBim is IERC721Receiver, Ownable, Pausable {
             compensatedCarbon: carbonToCompensate  // TODO: might want to use the a return from toucan and not the one the user filled in.
         }));
 
-        offsetHelper.autoOffset(BCT_ADDRESS, carbonToCompensate);
-
         totalCarbonCompensated += carbonToCompensate; // TODO: might want to use the a return from toucan and not the one the user filled in.
+
+        // Call Toucan's autoOffset function to retire/compensate the carbon.
+        offsetHelper.autoOffset(BCT_ADDRESS, carbonToCompensate);
     }
 
     /// @notice A getter function get an array of all participants back by address.
