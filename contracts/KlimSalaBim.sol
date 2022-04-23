@@ -60,10 +60,19 @@ contract KlimSalaBim {
         }));
 
         totalCarbonCompensated += carbonToCompensate; // TODO: might want to use the a return from toucan and not the one the user filled in.
-
-
-
     }
+
+    /// @notice A getter function get back an array of all compensated travels by the address.
+    /// @param userAddress: Address for which the compensations are requested
+    /// @return an array (can be empty) with all compensated travels
+    function getTravelsCompensated(address userAddress)
+        public
+        view
+        returns(SingleCompensatedTravel[] memory)
+    {
+        return participants[userAddress];
+    }
+
 
     /* /// @dev Required to use safeTransferFrom() from OpenZeppelin's ERC721 contract (when transferring NFTs to this contract). */
     /* function onERC721Received( */
