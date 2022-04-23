@@ -16,5 +16,10 @@ def deploy_mumbai():
     return ksb_contract
 
 def main():
+    if network.show_active() == "polygon-test-fork":
+        ksb_contract = deploy_dev()
+        return ksb_contract
+
     if network.show_active() == "polygon-test-alchemy":
-        deploy_mumbai()
+        ksb_contract = deploy_mumbai()
+        return ksb_contract
