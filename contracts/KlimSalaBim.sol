@@ -15,11 +15,18 @@ contract KlimSalaBim is IERC721Receiver, Ownable, Pausable {
 
     uint256 public totalCarbonCompensated = 0;  // Total CO2 compensated for all participants of the event.
 
-    address OFFSETHELPER_ADDRESS = 0x1A38e74D5190bA69938979aBe69ceb7b823209d3;
-    address BCT_ADDRESS = 0x2F800Db0fdb5223b3C3f354886d907A671414A7F;
+    // Mainnet Addresses
+    address OFFSETHELPER_ADDRESS = 0x79E63048B355F4FBa192c5b28687B852a5521b31;
+    // // Use NCT; it represents natural and higher quality carbon certifiacates.
+    // address BCT_ADDRESS = 0x2F800Db0fdb5223b3C3f354886d907A671414A7F;
     address NCT_ADDRESS = 0xD838290e877E0188a4A44700463419ED96c16107;
 
-    // instantiate toucan's offset helper contract
+    // Mumbai addresses
+    // address OFFSETHELPER_ADDRESS = 0x1A38e74D5190bA69938979aBe69ceb7b823209d3;
+    // address BCT_ADDRESS = 0xf2438A14f668b1bbA53408346288f3d7C71c10a1;
+    // address NCT_ADDRESS = 0x7beCBA11618Ca63Ead5605DE235f6dD3b25c530E;
+
+    // Instantiate ToucanProtocol's OffsetHelper contract.
     IOffsetHelper offsetHelper = IOffsetHelper(OFFSETHELPER_ADDRESS);
 
     enum TravelModes {
