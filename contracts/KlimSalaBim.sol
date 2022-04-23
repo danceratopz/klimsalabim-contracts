@@ -10,6 +10,8 @@ pragma solidity 0.8.9;
 contract KlimSalaBim {
     uint256 eventId = 0;
 
+    uint256 totalCarbonCompensated = 0;  // Total CO2 compensated for all participants of the event.
+
     enum TravelModes {
         Plane,
         Train,
@@ -23,6 +25,7 @@ contract KlimSalaBim {
         uint256 eventId;
         TravelModes modeOfTravel;
         uint256 distance;
+        uint256 compensatedCarbon;
         uint256 toucanBadgeID;
     }
 
@@ -38,6 +41,7 @@ contract KlimSalaBim {
     function compensateSingleParticipantTravel(
         string memory startingLocation,
         uint256 distance,
+        uint256 carbonToCompensate,
         TravelModes modeOfTravel
     ) public payable {
         // TODO: Connect to toucan retire function
@@ -51,8 +55,11 @@ contract KlimSalaBim {
             eventId: eventId,
             modeOfTravel: modeOfTravel,
             distance: distance,
+            compensatedCarbon: carbonToCompensate,  // TODO: might want to use the a return from toucan and not the one the user filled in.
             toucanBadgeID: dummyToucanID
         }));
+
+        totalCarbonCompensated += carbonToCompensate; // TODO: might want to use the a return from toucan and not the one the user filled in.
 
 
 
