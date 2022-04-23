@@ -10,7 +10,7 @@ pragma solidity 0.8.9;
 contract KlimSalaBim {
     uint256 eventId = 0;
 
-    uint256 totalCarbonCompensated = 0;  // Total CO2 compensated for all participants of the event.
+    uint256 public totalCarbonCompensated = 0;  // Total CO2 compensated for all participants of the event.
 
     enum TravelModes {
         Plane,
