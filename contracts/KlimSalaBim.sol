@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.9;
+pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
@@ -27,10 +27,9 @@ contract KlimSalaBim is IERC721Receiver {
         TravelModes modeOfTravel;
         uint256 distance;
         uint256 compensatedCarbon;
-        uint256 toucanBadgeID;
     }
 
-    mapping(address => SingleCompensatedTravel[]) public participants;
+    mapping(address => SingleCompensatedTravel[]) public compensatedTravels;
 
     constructor() {}
 
@@ -52,15 +51,14 @@ contract KlimSalaBim is IERC721Receiver {
         // TODO: Connect to toucan retire function
         // Send Matic to toucan protocol
 
-        uint256 dummyToucanID = 1; // A dummy number to fill into struct TODO: needs to be the proper ID
+        // uint256 dummyToucanID = 1; // A dummy number to fill into struct TODO: needs to be the proper ID -> No NFT to use
 
-        participants[msg.sender].push(SingleCompensatedTravel({
+        compensatedTravels[msg.sender].push(SingleCompensatedTravel({
             startingLocation: startingLocation,
             eventId: eventId,
             modeOfTravel: modeOfTravel,
             distance: distance,
-            compensatedCarbon: carbonToCompensate,  // TODO: might want to use the a return from toucan and not the one the user filled in.
-            toucanBadgeID: dummyToucanID
+            compensatedCarbon: carbonToCompensate  // TODO: might want to use the a return from toucan and not the one the user filled in.
         }));
 
         totalCarbonCompensated += carbonToCompensate; // TODO: might want to use the a return from toucan and not the one the user filled in.
@@ -74,7 +72,7 @@ contract KlimSalaBim is IERC721Receiver {
         view
         returns(SingleCompensatedTravel[] memory)
     {
-        return participants[userAddress];
+        return compensatedTravels[userAddress];
     }
 
     /// @dev Required to use safeTransferFrom() from OpenZeppelin's ERC721 contract (when transferring NFTs to this contract).
