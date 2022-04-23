@@ -6,9 +6,9 @@ import "./interfaces/IOffsetHelper.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 
-/// @title
+/// @title Klim Sala Bim: A Contract to Create Carbon Neutral Events on the Polygon Network using ToucanProtocols Carbon Primitives.
 /// @author danceratopz, haurog
-/// @notice
+/// @notice (Demo Version). Event participants can send MATIC to this contract in order to offset their travel to ETHAmsterdam using MATIC and ToucanProtocol's OffsetHelper.
 contract KlimSalaBim is IERC721Receiver, Ownable, Pausable {
 
     uint256 eventId = 0;  // Can be used to identify an Event 0: ETHAmsterdam
@@ -48,11 +48,9 @@ contract KlimSalaBim is IERC721Receiver, Ownable, Pausable {
     /// @param sender The address that sent the NFT.
     event NftReceived(address indexed sender);
 
-    /// @notice
-    /// @param startingLocation city
-    /// @param distance in kilometers to event location
-    /// @dev
-    /// @return
+    /// @notice Compensate the carbon used for a single leg from a particpant's journey.
+    /// @param startingLocation City where the participant started their journey.
+    /// @param distance in kilometers to event location.
     function compensateSingleParticipantTravel(
         string memory startingLocation,
         uint256 distance,
@@ -100,7 +98,7 @@ contract KlimSalaBim is IERC721Receiver, Ownable, Pausable {
         return compensatedTravels[userAddress];
     }
 
-        /// @notice Pauses the contract. Contract owner only, therefore very minimal function.
+    /// @notice Pauses the contract. Contract owner only, therefore very minimal function.
     function pauseContract() public onlyOwner() {
         _pause();
     }
