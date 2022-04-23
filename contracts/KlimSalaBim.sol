@@ -78,7 +78,7 @@ contract KlimSalaBim is IERC721Receiver, Ownable, Pausable {
         totalCarbonCompensated += carbonToCompensate;
 
         // Call Toucan's autoOffset function to retire/compensate the carbon.
-        offsetHelper.autoOffset(BCT_ADDRESS, carbonToCompensate);
+        offsetHelper.autoOffset{value: msg.value}(NCT_ADDRESS, carbonToCompensate);
     }
 
     /// @notice A getter function get an array of all participants back by address.
