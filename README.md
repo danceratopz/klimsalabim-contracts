@@ -23,8 +23,8 @@ KlimSalaBim enables users to reduce their carbon footprint by buying Carbon cert
 Architecture:
 
 - Toucan helper contracts for retiring carbon certificates
-- KlimSalaBim smart contracts accumulates the total emissions 
-- React-based NFT Dapp to mint Panther NFT and participate in lottery.
+- KlimSalaBim smart contracts accumulates the total carbon emissions 
+- Next.js App which enables users interact with klimsalabim.sol and Toucan protocol helpers
 
 Technologies
 
