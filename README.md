@@ -1,2 +1,4 @@
 # Klim-Sala-Bim backend contracts
-We build an accelerating financial perpetual motion machine which solves the problem of climate change. What could possibly go wrong?
+We build an intuitive way for participants of an event to offset their travel induced carbon emission by integrating with the Toucan project.
+
+
