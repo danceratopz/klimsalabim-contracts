@@ -37,9 +37,19 @@ def deploy_fork():
 
 def deploy_mumbai():
     if network.show_active() != "polygon-test-alchemy":
-        print(f"ERROR: Incorrect network. Expected 'polygon-test', got {network.show_active}")
+        print(f"ERROR: Incorrect network. Expected 'polygon-test-alchemy', got {network.show_active}")
         return
     deploy_account = accounts.load("ksb_deployment_polygon_test")
+    ksb_contract = KlimSalaBim.deploy({"from": deploy_account}, publish_source=True)
+    print(ksb_contract)
+    return ksb_contract
+
+
+def deploy_polygon():
+    if network.show_active() != "polygon-main-alchemy":
+        print(f"ERROR: Incorrect network. Expected 'polygon-main-alchemy', got {network.show_active}")
+        return
+    deploy_account = accounts.load("ksb_deployment_polygon_main")
     ksb_contract = KlimSalaBim.deploy({"from": deploy_account}, publish_source=True)
     print(ksb_contract)
     return ksb_contract
@@ -62,10 +72,22 @@ def main():
         ksb_contract.compensateSingleParticipantTravel("Zurich",
                                                        100, # kilometers travelled
                                                        tco2_to_retire,
-                                                       0,  # plane
+                                                       0,  # 0 ^= plane
                                                        {'from': accounts[0], 'value': matic_required});
         return ksb_contract, helpers_contract
 
     if network.show_active() == "polygon-test-alchemy":
         ksb_contract = deploy_mumbai()
-        return ksb_contract, helpers_contract
+        return ksb_contract
+
+    if network.show_active() == "polygon-main-alchemy":
+        ksb_contract = deploy_polygon()
+        # If you need to instantiate the contract later on mainnet it is available in the brownie console as
+        # - KlimSalaBim[0] ^= first deployment
+        # - KlimSalaBim[-1] ^= last deployment
+        # Then, for example (with other helpers and globals as defined above...)
+        # tco2_to_retire = int(1e16)
+        # helpers_contract = Contract.from_abi("OffsetHelpers", ADDRESSES['offset_helpers'], offset_helpers_abi)
+        # matic_required = helpers_contract.howMuchETHShouldISendToSwap(ADDRESSES['nct'], tco2_to_retire)
+        # KlimSalaBim[-1].compensateSingleParticipantTravel("Zurich", 100, tco2_to_retire, 0, {'sender': accounts[0], 'value': matic_required});
+        return ksb_contract
