@@ -24,18 +24,8 @@ Architecture:
 
 - Toucan helper contracts for retiring carbon certificates
 - KlimSalaBim smart contracts accumulates the total carbon emissions 
-- Next.js App which enables users interact with klimsalabim.sol and Toucan protocol helpers
+- Dapp which enables users interact with klimsalabim.sol and Toucan protocol helpers
 
-Technologies
-
-- UI - Next.js, React, HTML/CSS
-- Smart Contract - Solidity ERC-721, Toucan Protocol Helper classes
-- Programmable Cashflows - Superfluid (Future roadmap)
-- Backend - web3.js, Node.js
-- Art Design - Adobe PhotoShop, Adobe Illustrator
-- Testnet - Mumbai Polygon , Polygon Mainnet (Future roadmap)
-- Tools - Brownie, Coinbase SDK, Metamask
-- CI/CD - Netlify
 
 ## Demo Url
 
@@ -43,7 +33,7 @@ http://www.klimsalabim.xyz/
 
 ## Future Implementation Ideas
 
-- Streaming functionality to compensate for the stay of the participant at the event (Retire at the end) empowered by Superfluid Protocol.
+- Streaming functionality to compensate for the stay of the participant at the event (Retire at the end).
 - NFT claiming functionality from Toucan Protocol and extending it with information about the event.
 - Use EPNS to inform participants for when the contribution period has been closed and they can, for example, view the final version of their (dynamic, SVG-based) NFT.
 
