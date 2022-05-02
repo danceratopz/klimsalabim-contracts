@@ -1,24 +1,9 @@
 import json
 from brownie import accounts, network, Contract, KlimSalaBim
 
-# The path is relative to repo root (where brownie is executed)
-OFFSET_HELPERS_ABI_FILENAME = "./misc/abis/OffsetHelper.json"
-
-if 'test' in network.show_active():
-    ADDRESSES = {'nct': "0x7beCBA11618Ca63Ead5605DE235f6dD3b25c530E",
-                 'offset_helpers': "0x1A38e74D5190bA69938979aBe69ceb7b823209d3"}
-elif 'main' in network.show_active():
-    ADDRESSES = {'nct': "0xD838290e877E0188a4A44700463419ED96c16107",
-                 'offset_helpers': "0x79E63048B355F4FBa192c5b28687B852a5521b31"}
-else:
-    raise Exception(f"Unexpected network: network.show_active():")
-
-
-def load_offset_helpers_abi():
-    with open(OFFSET_HELPERS_ABI_FILENAME, 'r') as f:
-        abi = json.load(f)
-    return abi
-
+from scripts.abis import OFFSET_HELPERS_ABI_FILENAME, KLIMSALABIM_ABI_FILENAME
+from scripts.addresses import ADDRESSES
+import scripts.utils
 
 def deploy_fork():
     """
@@ -28,7 +13,7 @@ def deploy_fork():
     ksb_contract = KlimSalaBim.deploy({"from": deploy_account})
     print("Initialized KlimSalaBim contract:", ksb_contract)
 
-    offset_helpers_abi = load_offset_helpers_abi()
+    offset_helpers_abi = scripts.utils.load_abi(OFFSET_HELPERS_ABI_FILENAME)
     helpers_contract = Contract.from_abi("OffsetHelpers", ADDRESSES['offset_helpers'], offset_helpers_abi)
     print("Initalized OffsetHelpers contract:", helpers_contract)
 
